@@ -1,0 +1,14 @@
+<!-- nav -->
+<nav *ngIf="user" class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="navbar-nav container-fluid">
+    <div class="navbar-nav nav-item">
+      <a class="nav-item nav-link" routerLink="/tests" routerLinkActive="active">Tests</a>
+      <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+    </div>
+    <a (click)="logout()" class="nav-item nav-link d-flex">Logout</a>
+  </div>
+</nav>
+<!-- main app container -->
+<div [ngClass]="{ 'bg-light': user }" class="app-container">
+  <router-outlet></router-outlet>
+</div>

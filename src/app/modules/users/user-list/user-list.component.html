@@ -1,0 +1,27 @@
+<mat-card class="h-100">
+  <mat-card-header>
+    <mat-card-title class="rtm-title">User Management</mat-card-title>
+  </mat-card-header>
+  <div class="d-flex justify-content-between align-items-baseline mb-3">
+    <mat-card-actions class="d-flex flex-row-reverse">
+      <button class="rtm-btn btn-solid btn-solid--primary" mat-raised-button routerLink="add" color="primary">
+        New User
+      </button>
+    </mat-card-actions>
+  </div>
+
+  <mat-card-content class="mat-elevation-z8 p-3">
+    <ngx-table [columns]="columns" [configuration]="configuration" [data]="users" ></ngx-table>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #actionsTpl let-row>
+  <button [routerLink]="['edit', row.id]" mat-icon-button color="primary">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button (click)="deleteUser(row.id)" mat-icon-button>
+    <mat-icon>delete</mat-icon>
+  </button>
+</ng-template>
+
+

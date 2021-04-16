@@ -1,0 +1,27 @@
+<mat-card class="h-100">
+  <mat-card-header>
+    <mat-card-title class="rtm-title">{{isAddMode?'Add':'Update'}} User</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="mat-elevation-z8 p-3">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="w-100">
+        <input type="text" matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <input type="password" matInput placeholder="Password" formControlName="password">
+        <mat-error *ngIf="f.password.errors?.required">Password is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-select formControlName="role">
+          <mat-option value="STUDENT">STUDENT</mat-option>
+          <mat-option  value="TEACHER">TEACHER</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="mt-4">
+        <button mat-raised-button color="primary">{{isAddMode?'Add':'Update'}}</button>
+        <a [routerLink]="['/users']" class="ml-2" mat-button color="primary">Cancel</a>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

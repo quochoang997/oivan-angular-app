@@ -1,0 +1,92 @@
+<mat-card class="h-100">
+  <mat-card-header>
+    <mat-card-title class="rtm-title">Add Test</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="mat-elevation-z8 p-3">
+    <form [formGroup]="testForm" class="form-horizontal">
+      <mat-form-field class="w-100">
+        <input type="text" matInput placeholder="Name" formControlName="name">
+        <mat-error *ngIf="f.name.errors?.required">Name is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <input type="text" matInput placeholder="Description" formControlName="description">
+        <mat-error *ngIf="f.description.errors?.required">Description is required</mat-error>
+      </mat-form-field>
+      <div class="col" formArrayName="questions_attributes">
+        <div class="tabs">
+          <div *ngFor="let questionFormItem of questionFormArray.controls; let i = index"
+               style=" {{questionFormItem.value['_destroy'] === '1'?'display:none':''}}"
+               class="tab row" formGroupName="{{ i }}">
+            <label class="col-1">
+              <strong> {{ i + 1 }}</strong>
+            </label>
+            <label class="tab-label col-11 row">
+              <mat-form-field class="col-10" style="margin-bottom: -1.25em">
+                <input type="text" matInput placeholder="Name" formControlName="name">
+              </mat-form-field>
+              <mat-form-field class="col-10" style="margin-bottom: -1.25em">
+                <input type="text" matInput placeholder="Description" formControlName="description">
+              </mat-form-field>
+              <span class="col-1 text-right">
+                <button
+                  (click)="deleteQuestion(i)"
+                  *ngIf="questionFormArray.controls.length > 1"
+                  color="warn"
+                  mat-icon-button
+                >
+                  <mat-icon>highlight_off</mat-icon>
+                </button>
+              </span>
+            </label>
+            <div class="tab-content row" formArrayName="question_answers_attributes">
+              <div
+                *ngFor="let answerFormItem of answerForm(questionFormItem).controls; let j = index"
+                class="col-12 row"
+                formGroupName="{{ j }}"
+                style=" {{answerFormItem.value['_destroy'] === '1'?'display:none':''}}"
+              >
+                <div class="col-2">{{answerFormItem.value['_destroy'] }}</div>
+                <mat-form-field class="col-8" style="margin-bottom: -1.25em">
+                  <input type="text" matInput placeholder="Content" formControlName="content">
+                </mat-form-field>
+                <mat-checkbox
+                  formControlName="is_correct"
+                  class="rtm-label text-secondary col-1"
+                  color="primary"
+                  [id]="'is_correct'+ i + '-' + j"
+                ></mat-checkbox>
+                <div class="col-1 text-right">
+                  <button
+                    (click)="deleteAnswer(i, j)"
+                    *ngIf="answerForm(questionFormItem).controls.length > 1"
+                    color="warn"
+                    mat-icon-button
+                  >
+                    <mat-icon>highlight_off</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="col-2"></div>
+              <mat-card-actions class="col-10 ps-3">
+                <button (click)="addAnswer(i)" color="primary" mat-raised-button>Add Answer</button>
+              </mat-card-actions>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-row bd-highlight mb-3">
+          <div class="p-2 bd-highlight">
+            <mat-card-actions class="d-flex flex-row-reverse mr-0">
+              <button (click)="addQuestion()" color="primary" mat-raised-button>Add Question</button>
+            </mat-card-actions>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="d-flex flex-row-reverse">
+      <button (click)="onCancel()" class="ms-4" color="warn" mat-raised-button type="button">Cancel</button>
+      <button (click)="onSubmit()" color="primary" mat-raised-button>Submit</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
