@@ -28,7 +28,7 @@ export class TestListComponent implements OnInit {
     ];
     this.testService.getAll().subscribe(results => {
       if (results) {
-        this.testData = results.tests.tests;
+        this.testData = results.tests;
         this.cdr.markForCheck();
       }
     });

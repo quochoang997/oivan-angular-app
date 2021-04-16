@@ -30,7 +30,7 @@ export class UserListComponent implements OnInit {
     ];
     this.accountService.getAll().subscribe(results => {
       if (results) {
-        this.users = results.users.users;
+        this.users = results.users;
         this.cdr.markForCheck();
       }
     });
